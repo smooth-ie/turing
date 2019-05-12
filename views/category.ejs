@@ -1,0 +1,42 @@
+<% include header %>
+
+<div class="category_filter_container">
+	<%- include snippets/filter_form -%>
+</div>
+
+<div class="category_product_container">
+<% for(const [i, product] of products.entries()) { %>
+	<%- include snippets/product_card -%>
+<% } %>
+</div>
+
+<div class="pagination">
+	<% if (pagination.prev != false) { %>
+	<form action="/category/<%= category_id %>">
+		<button type="submit"><i class="fas fa-arrow-left"></i></button>
+		<input type="hidden" name="page" value="1" />
+
+		<% for(let key in inputs){ if(key != 'page'){ %>
+			<input type="hidden" name="<%= key %>" value="<%= (typeof inputs[key] !== 'string' ? JSON.stringify(inputs[key]) : inputs[key]) %>">
+		<% }} %>
+
+	</form>
+	<% } else { %>
+		<button type="submit" disabled="disabled"><i class="fas fa-arrow-left"></i></button>
+	<% } %>
+	<% if (pagination.next != false) { %>
+	<form action="/category/<%= category_id %>">
+		<button type="submit"><i class="fas fa-arrow-right"></i></button>
+		<input type="hidden" name="page" value="2" />
+		
+		<% for(let key in inputs){ if(key != 'page'){ %>
+			<input type="hidden" name="<%= key %>" value="<%= (typeof inputs[key] !== 'string' ? JSON.stringify(inputs[key]) : inputs[key]) %>">
+		<% }} %>
+	</form>
+	<% } else { %>
+		<button type="submit" disabled="disabled"><i class="fas fa-arrow-right"></i></button>
+	<% } %>
+</div>
+</form>
+
+<% include footer %>

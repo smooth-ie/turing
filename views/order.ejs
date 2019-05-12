@@ -1,0 +1,26 @@
+<% include header %>
+<div class="order-page">
+
+	<h1 class="order-thank-you">Thank you for your order.</h1>
+	
+	<% include snippets/order_card %>	
+
+	<div class="order-actions">
+		<a href="/category/all">
+		<button class="btn btn-md btn-light">Continue Shopping</button>
+		</a>
+		<% if (user !== false){ %>
+      <a href="/account">
+			<button class="btn btn-lg">View Account</button>
+			</a>
+    <% }else{ %>
+      <a href="<%= google_url %>">
+			<button class="btn btn-lg">Sign up / Log in with Google</button>
+			</a>
+    <% } %>
+
+
+	</div>
+
+</div>
+<% include footer %>

@@ -1,0 +1,41 @@
+<div class="order-wrapper">
+
+  <div class="line-wrapper">
+  <%
+    for (let key in order.lines){
+      let line = order.lines[key]
+  %>
+    <div class="line-item" data-oid="<%= key %>">
+      
+      <div class="line-col">
+        <div class="line-image" style="background-image: url('/product_images/<%= line.thumbnail %>')"></div>
+      </div>
+      <div class="line-col">
+        <h4 class="line-name"><%= line.name %></h4>
+      </div>
+      <div class="line-right">
+        <div class="line-col">
+          <div class="line-options">
+          <%= JSON.parse(line.attributes).color %> / <%= JSON.parse(line.attributes).size %>
+          </div>
+        </div>
+
+        <div class="line-col">
+          <div class="val quantity-val"><%= line.quantity %></div>
+        </div>
+
+        <div class="line-col line-price">
+          <h3 class="price">$<%= (line.discounted_price > 0.0 ? line.discounted_price: line.price ) %></h3>
+        </div>
+      </div>
+      
+    </div>
+  <% } %>
+  </div>
+
+
+  <div class="order-footer">
+    <h3>Total</h3>
+    <h3 class="price">$<%= order.header.total_amount %></h3>
+  </div>
+</div>

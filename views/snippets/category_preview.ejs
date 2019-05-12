@@ -1,0 +1,15 @@
+<% if(category.products.length){ %>
+<div class="product-page similar-products">
+
+	<h2><%= category.detail.name %></h2>
+	<% for(const [i, product] of category.products.entries()) { %>
+		<%- include product_card -%>
+	<% } %>
+
+	<div style="text-align: center; clear: both;">
+		<a href="/category/<%= category.detail.category_id %>">
+			<button class="btn btn-lg">View more</button>
+		</a>
+	</div>
+</div>
+<% } %>

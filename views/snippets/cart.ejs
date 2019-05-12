@@ -1,0 +1,74 @@
+<%
+  let cart_quantity = 0
+  let cart_price = 0
+  for (let key in cart){
+    let line = cart[key]
+    cart_quantity += line.quantity
+    let line_price = (line.product.discounted_price > 0.0 ? line.product.discounted_price: line.product.price );
+    cart_price += Math.round(line_price * 100) * line.quantity
+  } 
+%>
+
+<div class="bag-button">
+  <% if (cart_quantity > 0) { %>
+  <div class="bag-quantity"><%= cart_quantity %></div>
+  <% } %>
+  <i class="fas fa-shopping-bag"></i>
+</div>
+
+<div class="cart-dropdown<%= (cart_quantity > 0 ? '' : ' cart-empty') %><%= (typeof cart_closed !== 'undefined' ? ' cart-closed' : '') %>">
+
+  <div class="cart-wrapper">
+
+    <div class="cart-header">
+      <span class="cart-title">
+        <%= (cart_quantity > 0 ? cart_quantity + ' item'+(cart_quantity > 1 ? 's' : '')+' in your cart' : 'Your cart is empty') %>
+      </span>
+      <span class="cart-close cart-close-x">&times;</span>
+    </div>
+
+    <div class="line-wrapper">
+    <%
+      for (let key in cart){
+        let line = cart[key]
+    %>
+      <div class="line-item" data-oid="<%= key %>">
+        
+        <div class="line-col">
+          <div class="line-image" style="background-image: url('/product_images/<%= line.product.thumbnail %>')"></div>
+        </div>
+        <div class="line-col">
+          <h4 class="line-name"><%= line.product.name %></h4>
+          <button class="remove-line">Remove</button>
+        </div>
+        <div class="line-right">
+          <div class="line-col">
+            <div class="line-options">
+            <%= line.color %> / <%= line.size %>
+            </div>
+          </div>
+          <div class="line-col">
+            <div class="quantity-picker">
+              <input class="line-quantity" type="hidden" value="<%= line.quantity %>" name="quantity">
+              <div class="dec quantity-btn line-update"><i class="fas fa-minus"></i></div>
+              <div class="val quantity-val"><%= line.quantity %></div>
+              <div class="inc quantity-btn line-update"><i class="fas fa-plus"></i></div>
+            </div>
+          </div>
+
+          <div class="line-col line-price">
+            <h3 class="price">$<%= (line.product.discounted_price > 0.0 ? line.product.discounted_price: line.product.price ) %></h3>
+          </div>
+        </div>
+        
+      </div>
+    <% } %>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <button type="button" class="btn btn-md btn-light cart-close cart-close-btn">Back to shop</button>
+    <button type="button" class="btn btn-md bag-checkout-btn" onclick="checkout.handle(<%= cart_price %>)">Checkout</button>
+  </div>
+
+</div>

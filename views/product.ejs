@@ -1,0 +1,89 @@
+<% include header %>
+<div class="product-page">
+
+	<div class="product-left">
+		<div class="product-image" style="background-image: url('/product_images/<%= product.image %>');"></div>
+
+		<div class="thumbnails">
+			<img class="product-thumbnail selected" src="/product_images/<%= product.image %>">
+			<img class="product-thumbnail" src="/product_images/<%= product.image_2 %>">
+		</div>
+	</div>
+	<div class="product-right">
+		<form id="cart-form" action="/cart/create">
+			<input type="hidden" name="id" value="<%= product.product_id %>">
+			<h2><%= product.name %></h2>
+
+			<% if(product.discounted_price > 0.0){ %>
+				<h3 class="price">
+					<span class="was-price">$<%= product.price %></span>
+					<span>$<%= product.discounted_price %></span>
+				</h3>
+			<% }else{ %>
+				<h3 class="price">$<%= product.price %></h3>
+			<% } %>
+
+			<div class="product-input-container">
+				<h4 class="title color-title">Color</h4>
+				<input id="color-input" type="hidden" name="color" value="<%= color_table[0].value %>">
+				<div class="color-selectors selector-root" input-type="one" input-id="#color-input">
+				<% 
+				let count = 0;
+				for(let c of color_table){
+					let selected = (count == 0 ? ' selected' : '')
+					count++
+				%>
+					<div class="color-selector selector<%= selected %>" data-value="<%= c.value %>">
+						<div class="color-circle" style="background: <%= c.color %>"></div>
+					</div>
+				<% } %>
+				</div>
+			</div>
+
+			<div class="product-input-container">
+				<h4 class="title size-title">Size</h4>
+				<input id="size-input" type="hidden" name="size" value="<%= size_table[0].value %>">
+				<div class="size-selectors selector-root" input-type="one" input-id="#size-input">
+				<% 
+				count = 0
+				for(let s of size_table){
+					let selected = (count == 0 ? ' selected' : '')
+					count++
+				%>
+					<div class="size-selector selector<%= selected %>" data-value="<%= s.value %>">
+						<div class="size-button"><%= s.title %></div>
+					</div>
+				<% } %>
+				</div>
+			</div>
+
+			<div class="quantity-picker">
+				<input type="hidden" value="1" name="quantity">
+				<h4 class="title quantity-title">Quantity</h4>
+				<div class="dec quantity-btn qty-btn"><i class="fas fa-minus"></i></div>
+				<div class="val quantity-val">1</div>
+				<div class="inc quantity-btn qty-btn"><i class="fas fa-plus"></i></div>
+			</div>
+
+			<div class="atc-container">
+				<button class="btn btn-lg" type="submit">Add to cart</button>
+			</div>
+
+		</form>
+
+	</div>
+
+</div>
+	<script>console.log(<%- JSON.stringify(similar) -%>);</script>
+<% if(similar.length){ %>
+<div class="product-page similar-products">
+	<h2>SIMILAR PRODUCTS</h2>
+	<% for(const [i, product] of similar.entries()) { %>
+		<%- include snippets/product_card -%>
+	<% } %>
+</div>
+<% } %>
+
+
+
+<% include footer %>

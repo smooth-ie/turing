@@ -1,0 +1,38 @@
+<% include header %>
+
+<h1 class="order-title">Order history</h1>
+
+<div class="account-page order-page">
+
+
+<% 
+if(orders.length){
+for(let order of orders){ %>
+	
+<% include snippets/order_card %>
+
+<% } }else{ %>
+
+<div class="order-wrapper">
+
+  <div class="line-wrapper">
+	<h3 style="margin-left: 10px;">You have no orders</h3>
+  </div>
+
+</div>
+
+<% } %>
+
+<div class="order-actions">
+	<a href="/logout">
+	<button class="btn btn-md btn-light">Log out</button>
+	</a>
+	<a href="/category/all">
+	<button class="btn btn-lg">Continue Shopping</button>
+	</a>
+	
+</div>
+
+</div>
+
+<% include footer %>

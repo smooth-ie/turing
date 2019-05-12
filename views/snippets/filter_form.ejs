@@ -1,0 +1,68 @@
+<form id="filter-form" action="/category/<%= category_id %>">
+	<% for(let key in inputs){ if(key != 'size' && key != 'color' && key != 'min' && key != 'max'){ %>
+		<input type="hidden" name="<%= key %>" value="<%= (typeof inputs[key] !== 'string' ? JSON.stringify(inputs[key]) : inputs[key]) %>">
+	<% }} %>
+
+	<div class="filter-section filter-header">
+		Filter by
+	</div>
+	
+	<div class="filter-section filter-controls">
+		<div class="filter-control color-filter">
+			<h4 class="title color-title">Color</h4>
+			<input id="color-input" type="hidden" name="color" value="<%= JSON.stringify(inputs['color']) %>">
+
+			<div class="color-selectors selector-root" input-id="#color-input">
+			<%
+			for(let c of color_table){
+				let selected = ''
+				for(let value of inputs.color){
+				  if( parseInt(value) == parseInt(c.value) ){
+					selected = ' selected';
+					break;
+				  }
+				}
+			%>
+
+				<div class="color-selector selector<%= selected %>" data-value="<%= c.value %>">
+					<div class="color-circle" style="background: <%= c.color %>"></div>
+				</div>
+			<% } %>
+			</div>
+
+		</div>
+		<div class="filter-control size-filter">
+			<h4 class="title size-title">Size</h4>
+			<input id="size-input" type="hidden" name="size" value="<%= JSON.stringify(inputs['size']) %>">
+
+			<div class="size-selectors selector-root" input-id="#size-input">
+			<% 
+			for(let s of size_table){
+				let selected = ''
+				for(let value of inputs.size){
+				  if( parseInt(value) == parseInt(s.value) ){
+					selected = ' selected';
+					break;
+				  }
+				}
+			%>
+				<div class="size-selector selector<%= selected %>" data-value="<%= s.value %>">
+					<div class="size-button"><%= s.title %></div>
+				</div>
+			<% } %>
+			</div>
+		</div>
+		<div class="filter-control price-filter">
+			<input id="min-input" type="hidden" name="min" value="<%= inputs['min'] %>">
+			<input id="max-input" type="hidden" name="max" value="<%= inputs['max'] %>">
+			<h4 class="title price-title">Price</h4>
+			<div class="slider-input-container">
+				<input type="hidden" class="slider-input" value="<%= inputs['min'] %>,<%= inputs['max'] %>" />
+			</div>
+		</div>
+	</div>
+	<div class="filter-section filter-footer">
+		<button id="filter-submit" class="btn disabled" type="submit" disabled="disabled">APPLY</button>
+	</div>
+
+</form>

@@ -1,0 +1,46 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="/raw_css/jrange.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="page-width">
+      <a href="/">
+      <div class="shop-title">GREAT SHOP</div>
+      </a>
+      <ul class="nav-list">
+        <a href="/category/all"><li>Shop all</li></a>
+        <a href="/department/1"><li>Regional</li></a>
+        <a href="/department/2"><li>Nature</li></a>
+        <a href="/department/3"><li>Seasonal</li></a>
+        <% if (user !== false){ %>
+          <a href="/account"><li>Account</li></a>
+        <% }else{ %>
+          <a href="<%= google_url %>"><li>Log in</li></a>
+        <% } %>
+        
+      </ul>
+
+      
+      <div class="bag">
+        <% include snippets/cart %>
+      </div>
+
+      <div class="search">
+        <i class="fas fa-search search-button"></i>
+        <div class="search-bar">
+          <form action="/category/all" method="GET">
+            <input type="text" name="q" placeholder="Enter a search query...">
+            <button class="btn btn-md" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="page-width">
+  

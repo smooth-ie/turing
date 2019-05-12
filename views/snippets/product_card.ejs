@@ -1,0 +1,36 @@
+
+<%
+let first_product2 = (i % 2 == 0 ? ' first_product_2-col' : '')
+let first_product3 = (i % 3 == 0 ? ' first_product_3-col' : '')
+let first_product4 = (i % 4 == 0 ? ' first_product_4-col' : '')
+
+let onsale = false
+if (product.discounted_price > 0.0){
+	onsale = true
+}
+%>
+
+<a href="/product/<%= product.product_id %>">
+<div class="product_card<%= first_product2 %><%= first_product3 %><%= first_product4 %>">
+	<div class="product_wrapper">
+		<div class="product_inner_wrapper">
+			<% if(product.discounted_price > 0.0){ %>
+				<div class="sale-tag">SALE</div>
+			<% } %>
+			<img src="/product_images/<%= product.image %>" alt="">
+			<div class="details">
+				<h3 class="title"><%= product.name %></h3>
+				<% if(product.discounted_price > 0.0){ %>
+					<h3 class="price">
+						<span class="was-price">$<%= product.price %></span>
+						<span>$<%= product.discounted_price %></span>
+					</h3>
+				<% }else{ %>
+					<h3 class="price">$<%= product.price %></h3>
+				<% } %>
+				
+			</div>
+		</div>
+	</div>
+</div>
+</a>

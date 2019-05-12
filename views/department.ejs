@@ -1,0 +1,12 @@
+<% include header %>
+
+<div class="department-header">
+<h1><%= department.name %></h1>
+<h4><%= department.description %></h4>
+</div>
+
+<% for(let category of categories ) { %>
+<% include snippets/category_preview %>
+<% } %>
+
+<% include footer %>
